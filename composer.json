@@ -1,4 +1,11 @@
 {
+    "name": "mergetta/core",
+    "authors": [
+        {
+            "name": "Karabutin Alex",
+            "email": "karabutinalex@gmail.com"
+        }
+    ],
     "autoload": {
         "psr-0": {
             "Mergetta\\Core": "src/",
