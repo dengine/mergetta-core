@@ -1,0 +1,17 @@
+{
+    "autoload": {
+        "psr-0": {
+            "Mergetta\\Core": "src/",
+            "Mergetta\\Bus": "src/",
+            "Mergetta\\Http": "src/",
+            "Mergetta\\System": "src/",
+            "Mergetta\\Tools": "src/"
+        }
+    },
+    "require": {
+        "predis/predis": "0.8.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    }
+}
