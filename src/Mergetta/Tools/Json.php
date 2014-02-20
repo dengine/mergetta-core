@@ -74,4 +74,9 @@ class Json {
     {
         return json_encode($this->data);
     }
+
+    public function raw()
+    {
+        return $this->data;
+    }
 } 

@@ -7,6 +7,8 @@
  */
 class Http {
 
+    private static $curl = null;
+
     /**
      * @param string $url
      * @param array $params
@@ -15,18 +17,24 @@ class Http {
      */
     public static function get($url, array $params = array())
     {
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        if (is_null(self::$curl)) {
+            self::$curl = curl_init();
+            curl_setopt(self::$curl, CURLOPT_RETURNTRANSFER, true);
+        }
 
-        $response = curl_exec($curl);
+        curl_setopt(self::$curl, CURLOPT_URL, $url);
+        curl_setopt(self::$curl, CURLOPT_SSL_VERIFYPEER, false);
 
-        $info = curl_getinfo($curl);
+        $response = curl_exec(self::$curl);
+
+        if ($response === false) {
+            throw new TransportException(curl_error(self::$curl), curl_errno(self::$curl));
+        }
+
+        $info = curl_getinfo(self::$curl);
         if ($info['http_code'] >= 400) {
             throw new HttpException('', $info['http_code']);
         }
-
-        curl_close($curl);
 
         return $response;
     }

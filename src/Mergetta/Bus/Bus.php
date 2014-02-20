@@ -26,9 +26,9 @@ class Bus {
      * @return ServiceProvider
      * @throws ServiceDuplicateException
      */
-    public function createService($serviceName)
+    public function createService($serviceName, $duplicateProtection = true)
     {
-        if ($this->isServiceRegistered($serviceName)) {
+        if ($duplicateProtection && $this->isServiceRegistered($serviceName)) {
             throw new ServiceDuplicateException($serviceName);
         }
         return new ServiceProvider($this->transport, $serviceName);
